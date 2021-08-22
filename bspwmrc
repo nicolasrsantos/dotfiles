@@ -1,0 +1,29 @@
+#! /bin/sh
+bspc rule -r "*"
+
+#### Autostart ####
+sxhkd &
+picom --config ~/.config/picom/picom.conf &
+feh --bg-fill ~/wallpapers/0001.jpg &
+[ -x ~/.config/polybar/launch.sh ] && ~/.config/polybar/launch.sh &
+
+# Monitor configs ####
+bspc monitor DVI-I-1 -d 1 2 3 4 5
+bspc monitor HDMI-0 -d 1 2 3 4 5
+
+#### Window configs ####
+bspc config border_width	2
+bspc config window_gap		3
+bspc config focused_border_color \#3c3836
+bspc config normal_border_color  
+
+#### Global configs ####
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config remove_unplugged_monitors true
+bspc config remove_disabled_monitors true
+bspc config merge_overlapping_monitors true
+setxkbmap -option grp:alt_shift_toggle -model abnt2 -layout br,us &
+#### Removing annoying cross pointer ####
+xsetroot -cursor_name left_ptr &
