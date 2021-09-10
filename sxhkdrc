@@ -2,7 +2,7 @@
 super + Return
 	alacritty
 
-# Firefox
+# Browser
 super + a
 	google-chrome-stable
 
@@ -18,13 +18,15 @@ super + d
 super + shift + Return
 	rofi -show drun -show-icons
 
-# make sxhkd reload its configuration files:
+# Make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# Screen locker
 ctrl + alt + l
 	betterlockscreen -l
 
+# Shutter
 Print
 	shutter
 

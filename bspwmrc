@@ -4,7 +4,7 @@ bspc rule -r "*"
 #### Autostart ####
 sxhkd &
 picom --config ~/.config/picom/picom.conf &
-feh --bg-fill ~/wallpapers/0001.jpg &
+feh --bg-fill ~/wallpapers/0000.jpg &
 [ -x ~/.config/polybar/launch.sh ] && ~/.config/polybar/launch.sh &
 
 # Monitor configs ####
@@ -25,5 +25,6 @@ bspc config remove_unplugged_monitors true
 bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
 setxkbmap -option grp:alt_shift_toggle -model abnt2 -layout br,us &
-#### Removing annoying cross pointer ####
+
+#### Remove cross pointer ####
 xsetroot -cursor_name left_ptr &

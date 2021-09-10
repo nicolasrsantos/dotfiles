@@ -1,4 +1,5 @@
 [colors]
+
 background = #222
 background-alt = #444
 foreground = #dfdfdf
@@ -30,7 +31,7 @@ font-3 = "Noto Sans Symbols2:size=10;1"
 
 modules-left = bspwm xwindow
 modules-center = mpd
-modules-right = updates-pacman filesystem pulseaudio xkeyboard memory cpu eth date
+modules-right = updates-pacman filesystem sound xkeyboard memory cpu eth date
 
 tray-position = right
 tray-padding = 2
@@ -66,8 +67,10 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
+mount-1 = /home
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %mountpoint%%{F-}: %percentage_used%%
+label-mounted-foreground = ${colors.foreground-alt}
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -161,7 +164,7 @@ format-underline = #0a6cf5
 
 label = %date% %time%
 
-[module/pulseaudio]
+[module/sound]
 type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
