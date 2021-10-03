@@ -8,7 +8,11 @@ super + a
 
 # Nautilus
 super + q
-	nautilus
+	thunar
+
+# VSCode
+alt + e
+	code
 
 # Discord
 super + d
