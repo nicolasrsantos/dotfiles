@@ -9,7 +9,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/example]
-monitor = ${env:MONITOR:DP-0}
+monitor = ${env:MONITOR:DVI-I-1}
 width = 100%
 height = 2.5%
 radius = 0.0
@@ -29,9 +29,10 @@ font-1 = "Noto Sans Mono:size=10;1"
 font-2 = "Noto Sans Symbols:size=10;1"
 font-3 = "Noto Sans Symbols2:size=10;1"
 
+enable-ipc = true
 modules-left = bspwm xwindow
 modules-center = mpd
-modules-right = updates-pacman filesystem sound xkeyboard memory cpu eth date
+modules-right = package-updates-trigger package-updates filesystem sound xkeyboard memory cpu eth date
 
 tray-position = right
 tray-padding = 2
@@ -45,6 +46,15 @@ margin-top = 0
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
+
+[module/package-updates]
+type = custom/ipc
+hook-0 = ~/.config/polybar/package-updates
+
+[module/package-updates-trigger]
+type = custom/script
+exec = polybar-msg hook package-updates 1 &>/dev/null
+interval = 600
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -67,7 +77,6 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
-mount-1 = /home
 
 label-mounted = %mountpoint%%{F-}: %percentage_used%%
 label-mounted-foreground = ${colors.foreground-alt}
@@ -165,7 +174,7 @@ format-underline = #0a6cf5
 label = %date% %time%
 
 [module/sound]
-type = internal/alsa
+type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
 label-volume = VOL %percentage%%

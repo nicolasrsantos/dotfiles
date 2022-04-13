@@ -16,9 +16,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-sneak'
 Plug 'chriskempson/base16-vim'
 Plug 'airblade/vim-rooter'
-Plug 'preservim/nerdtree'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -27,22 +27,7 @@ call plug#end()
 " ============================================================
 set background=dark
 let base16colorspace=256
-colorscheme base16-gruvbox-dark-hard
-
-" Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-
-" Start NERDTree in minimal UI mode (No help lines)
-let NERDTreeMinimalUI = 1
-
-" Change current working directory based on root directory in NERDTree
-let NERDTreeChDirMode = 2
+colorscheme base16-gruvbox-dark-hard 
 
 " Plugin settings
 let g:secure_modelines_allowed_items = [

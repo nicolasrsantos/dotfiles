@@ -18,6 +18,10 @@ alt + e
 super + d
 	discord
 
+# Spotify
+super + p
+	spotify
+
 # program launcher
 super + shift + Return
 	rofi -show drun -show-icons
