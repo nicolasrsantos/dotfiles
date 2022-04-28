@@ -4,27 +4,27 @@
 call plug#begin()
 
 " LSP stuff
-Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'onsails/lspkind.nvim'
+Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
 Plug 'hrsh7th/vim-vsnip'
+Plug 'onsails/lspkind.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 
 " Theme
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
 Plug 'yggdroot/indentLine'
+" Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+" Plug 'jordwalke/vim-taste'
 
 " Editing and GUI enhancements
 Plug 'machakann/vim-highlightedyank'
 Plug 'stephpy/vim-yaml'
 Plug 'ciaranm/securemodelines'
 Plug 'itchyny/lightline.vim'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
@@ -87,49 +87,111 @@ endfunction
 " LSP config
 set completeopt=menu,menuone,noselect
 
-lua <<EOF
+lua << END
 	local cmp = require'cmp'
-	local lspkind = require('lspkind')
+	local lspkind = require'lspkind'
+	local lspconfig = require'lspconfig'
 
 	cmp.setup({
-		snippet = {
-			expand = function(args)
-				vim.fn["vsnip#anonymous"](args.body)
-			end,
-		},
 		mapping = {
 			['<C-d>'] = cmp.mapping.scroll_docs(-4),
 			['<C-f>'] = cmp.mapping.scroll_docs(4),
 			['<C-Space>'] = cmp.mapping.complete(),
 			['<C-e>'] = cmp.mapping.close(),
-			['<CR>'] = cmp.mapping.confirm({ select = true }),
+			['<Tab>'] = cmp.mapping.confirm({ select = true }),
+		},
+		sources = cmp.config.sources({
+			{ name = 'nvim_lsp' },
+			{ name = 'vsnip' },
+			{ name = 'buffer' },
+		}),
+		snippet = {
+			expand = function(args)
+				vim.fn["vsnip#anonymous"](args.body)
+			end,
 		},
 		formatting = {
-			format = lspkind.cmp_format({
+			format = lspkind.cmp_format{
+				with_text = true,
 				mode = 'symbol', -- show only symbol annotations
-				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
-				before = function (entry, vim_item)
-					return vim_item
-				end
-			})
+				maxwidth = 50,
+				menu = {
+						buffer = "[buf]",
+						nvim_lsp = "[LSP]",
+						nvim_lua = "[api]",
+						vim_vsnip = "[snip]"
+				}
+			},
+			symbol_map = {
+				Text = "",
+				Method = "",
+				Function = "",
+				Constructor = "",
+				Field = "ﰠ",
+				Variable = "",
+				Class = "ﴯ",
+				Interface = "",
+				Module = "",
+				Property = "ﰠ",
+				Unit = "塞",
+				Value = "",
+				Enum = "",
+				Keyword = "",
+				Snippet = "",
+				Color = "",
+				File = "",
+				Reference = "",
+				Folder = "",
+				EnumMember = "",
+				Constant = "",
+				Struct = "פּ",
+				Event = "",
+				Operator = "",
+				TypeParameter = ""
+			}
 		},
-		sources = {
-			{ name = 'nvim_lsp' },
-			{ name = 'luasnip' },
-			{ name = 'buffer' },
-		}
 	})
 
-	require('lspconfig').pyright.setup{
+	local on_attach = function(client, bufnr)
+		-- Enable completion triggered by <c-x><c-o>
+		vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+		-- Mappings.
+		local opts = { noremap=true, silent=true }
+
+		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+		require("lsp_signature").on_attach({
+			bind = true,
+			handler_opts = {
+				border = "shadow"
+			},
+		})
+	end
+
+	lspconfig.pyright.setup{
+		on_attach = on_attach,
+		flags = {
+			debounce_text_changes = 150,
+		},
 		capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 	}
-EOF
+END
 
-" Enable type inlay hints for current line on cursor hover
-autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
-
-" NERD Commenter config
+" Nerdcommenter confi
 let g:NERDSpaceDelims = 1
 
 " Vimagit config
@@ -170,10 +232,10 @@ set nu
 set relativenumber
 set encoding=utf-8
 set noerrorbells
+set autoindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set autoindent
 set nowrap
 set noswapfile
 set signcolumn=yes
@@ -189,8 +251,9 @@ set completeopt=menuone,noinsert,noselect
 set mouse=a
 set cursorline
 set clipboard^=unnamed,unnamedplus
+set updatetime=1000
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:↲
 highlight NonText ctermfg=7 guifg=gray guibg=NONE ctermbg=NONE
 
 " ============================================================
@@ -230,12 +293,6 @@ nnoremap <leader>k :wincmd k<CR>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-nnoremap <leader>f :NERDTreeFocus<CR>
-nnoremap <leader>n :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-nmap <leader>r :NERDTreeRefreshRoot
-
 vnoremap <C-h> :nohlsearch<CR>
 nnoremap <C-h> :nohlsearch<CR>
 
@@ -243,3 +300,14 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<CR>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<CR>
+
+nnoremap <c-w><c-r> :%s/<c-r><c-w>//g<left><left>
+
+" Make esc leave terminal mode
+tnoremap <leader><Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
+
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>bf :bfirst<CR>
+nnoremap <leader>bl :blast<CR>
