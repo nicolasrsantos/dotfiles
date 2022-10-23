@@ -4,9 +4,9 @@ bspc rule -r "*"
 #### Autostart ####
 sxhkd &
 picom --config ~/.config/picom/picom.conf &
-feh --bg-fill ~/Files/wallpapers/0001.jpg &
+feh --bg-fill ~/Files/wallpapers/0.png &
 [ -x ~/.config/polybar/launch.sh ] && ~/.config/polybar/launch.sh &
-xrandr --output DVI-I-1 --mode 1920x1080 --rate 144 --primary 
+xrandr --output DVI-I-1 --mode 1920x1080 --rate 144 --primary
 xrandr --output HDMI-0 --mode 1920x1080 --right-of DVI-I-1
 
 #### Global configs ####

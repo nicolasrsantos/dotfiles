@@ -29,6 +29,9 @@ alias rc='nvim ~/.zshrc'
 alias src='source ~/.zshrc'
 alias aterm='nvim ~/dotfiles/alacritty.yml'
 alias pdl='conda activate pdl'
+alias tmux="TERM=screen-256color-bce tmux"
+alias tmuxconf="nvim ~/dotfiles/.tmux.conf"
+alias dots="cd ~/dotfiles"
 
 bindkey '^ ' autosuggest-accept
 bindkey '^n' autosuggest-accept

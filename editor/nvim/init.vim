@@ -14,10 +14,10 @@ Plug 'onsails/lspkind.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 
 " Theme
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
 Plug 'yggdroot/indentLine'
-" Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 " Plug 'jordwalke/vim-taste'
 
 " Editing and GUI enhancements
@@ -50,7 +50,12 @@ call plug#end()
 " ============================================================
 set background=dark
 let base16colorspace=256
-colorscheme base16-gruvbox-dark-hard
+" colorscheme base16-gruvbox-dark-hard
+let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
+lua << EOF
+require("catppuccin").setup()
+EOF
+colorscheme catppuccin
 
 " Plugin settings
 let g:secure_modelines_allowed_items = [
