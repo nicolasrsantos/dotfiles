@@ -4,10 +4,10 @@ bspc rule -r "*"
 #### Autostart ####
 sxhkd &
 picom --config ~/.config/picom/picom.conf &
-feh --bg-fill ~/Files/wallpapers/0.png &
+feh --bg-fill ~/aa.jpeg &
 [ -x ~/.config/polybar/launch.sh ] && ~/.config/polybar/launch.sh &
-xrandr --output DVI-I-1 --mode 1920x1080 --rate 144 --primary
-xrandr --output HDMI-0 --mode 1920x1080 --right-of DVI-I-1
+xrandr --output DP-2 --mode 1920x1080 --rate 144 --primary
+xrandr --output HDMI-0 --mode 1920x1080 --right-of DP-2
 
 #### Global configs ####
 bspc config borderless_monocle   true
@@ -17,9 +17,9 @@ bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
 
 # Monitor configs ####
-bspc monitor DVI-I-1 -d 1 2 3 4 5
+bspc monitor DP-2 -d 1 2 3 4 5
 bspc monitor HDMI-0 -d 6 7 8 9
-bspc wm -0 DVI-I-1 HDMI-0
+bspc wm -0 DP-2 HDMI-0
 
 #### Window configs ####
 bspc config border_width	0

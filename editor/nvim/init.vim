@@ -48,8 +48,8 @@ call plug#end()
 " ============================================================
 " # PLUGINS SETTINGS
 " ============================================================
-set background=dark
-let base16colorspace=256
+" set background=dark
+" let base16colorspace=256
 " colorscheme base16-gruvbox-dark-hard
 let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 lua << EOF
@@ -192,7 +192,7 @@ lua << END
 		flags = {
 			debounce_text_changes = 150,
 		},
-		capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+		capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 	}
 END
 
