@@ -1,6 +1,6 @@
-# Alacritty 
+# Alacritty
 super + Return
-	alacritty
+	alacritty -o font.size=20
 
 # Browser
 super + a

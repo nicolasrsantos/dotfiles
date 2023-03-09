@@ -19,7 +19,7 @@ else
   export EDITOR='nvim'
 fi
 
-alias ls='exa -lah --color=auto'
+alias ls='exa -lah --color=auto --time-style=long-iso --group-directories-first'
 alias v='nvim'
 alias cat='bat'
 alias pacs='sudo pacman -Ss'
@@ -32,12 +32,15 @@ alias pdl='conda activate pdl'
 alias tmux="TERM=screen-256color-bce tmux"
 alias tmuxconf="nvim ~/dotfiles/.tmux.conf"
 alias dots="cd ~/dotfiles"
-alias work="timer 40m && terminal-notifier -message 'Pomodoro'\
+alias work="timer 60m && terminal-notifier -message 'Pomodoro'\
         -title 'Work Timer is up! Take a Break 😊'\
         -appIcon '~/Pictures/pumpkin.png'\
         -sound Crystal"
-
 alias rest="timer 10m && terminal-notifier -message 'Pomodoro'\
+        -title 'Break is over! Get back to work 😬'\
+        -appIcon '~/Pictures/pumpkin.png'\
+        -sound Crystal"
+alias long_rest="timer 20m && terminal-notifier -message 'Pomodoro'\
         -title 'Break is over! Get back to work 😬'\
         -appIcon '~/Pictures/pumpkin.png'\
         -sound Crystal"
