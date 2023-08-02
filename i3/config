@@ -4,6 +4,8 @@ set $RightMonitor "HDMI-0"
 
 font pango:monospace 8
 
+for_window [class="^.*"] border pixel 0
+
 mouse_warping none
 
 exec --no-startup-id dex --autostart --environment i3
@@ -33,6 +35,9 @@ bindsym $mod+a exec google-chrome
 # discord
 bindsym $mod+d exec discord
 assign [class="discord"] 5
+
+# nautilus
+bindsym $mod+q exec nautilus
 
 # kill focused window
 bindsym $mod+w kill

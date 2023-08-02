@@ -19,6 +19,7 @@ else
   export EDITOR='nvim'
 fi
 
+alias i3config='nvim ~/dotfiles/i3/config'
 alias ls='exa -lah --color=auto --time-style=long-iso --group-directories-first'
 alias v='nvim'
 alias cat='bat'
