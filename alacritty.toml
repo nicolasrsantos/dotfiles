@@ -1,0 +1,62 @@
+import = ["~/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+
+shell = {program="/usr/bin/zsh", args=["--login"]}
+
+live_config_reload = true
+
+[env]
+TERM = "alacritty"
+
+[window]
+decorations     = "none"
+dynamic_title   = true
+startup_mode    = "Maximized"
+
+[window.padding]
+x = 10
+y = 5
+
+[font.normal]
+family = "JetBrains Mono Nerd Font Mono"
+style  = "Regular"
+
+[font.bold]
+family = "JetBrains Mono Nerd Font Mono"
+style  = "Bold"
+
+[font.bold_italic]
+family = "JetBrains Mono Nerd Font Mono"
+style  = "Bold Italic"
+
+[font.italic]
+family = "JetBrains Mono Nerd Font Mono"
+style  = "Italic"
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[[keyboard.bindings]]
+action = "Paste"
+key    = "V"
+mods   = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key    = "C"
+mods   = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key    = "PageUp"
+mods   = "Shift"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key    = "PageDown"
+mods   = "Shift"
+
+[[keyboard.bindings]]
+key    = "Back"
+mods   = "Control"
+chars  = "\u0017"

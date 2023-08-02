@@ -51,11 +51,11 @@ call plug#end()
 " set background=dark
 " let base16colorspace=256
 " colorscheme base16-gruvbox-dark-hard
-let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
-lua << EOF
-require("catppuccin").setup()
-EOF
-colorscheme catppuccin
+" let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
+" lua << EOF
+" require("catppuccin").setup()
+" EOF
+colorscheme catppuccin-mocha
 
 " Plugin settings
 let g:secure_modelines_allowed_items = [
