@@ -131,6 +131,10 @@ workspace $ws3 output $LeftMonitor
 workspace $ws4 output $LeftMonitor
 workspace $ws5 output $LeftMonitor
 workspace $ws6 output $RightMonitor
+workspace $ws7 output $RightMonitor
+workspace $ws8 output $RightMonitor
+workspace $ws9 output $RightMonitor
+workspace $ws10 output $RightMonitor
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
