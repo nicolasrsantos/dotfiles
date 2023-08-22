@@ -3,15 +3,12 @@ set $LeftMonitor "DP-0""
 set $RightMonitor "HDMI-0"
 
 font pango:monospace 8
-
 for_window [class="^.*"] border pixel 0
 
 mouse_warping none
 
 exec --no-startup-id dex --autostart --environment i3
-
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
 exec --no-startup-id nm-applet
 
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -45,10 +42,12 @@ bindsym $mod+w kill
 # start dmenu (a program launcher)
 bindsym $mod+Shift+Return exec rofi -show drun -show-icons
 
+# betterlockscreen
+bindsym $mod+l betterlockscreen -l
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
-bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
@@ -178,3 +177,5 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+exec_always "setxkbmap -model abnt2 -layout us,br -variant ,, -option grp:alt_shift_toggle"
